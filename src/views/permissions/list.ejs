@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %> | RBAC</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<div class="flex min-h-screen">
+  <%- include('../layouts/sidebar') %>
+  <div class="flex-1 flex flex-col">
+    <%- include('../layouts/header') %>
+    <main class="p-6 flex-1">
+      <div class="bg-white rounded-xl shadow p-6">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border p-3 text-left">#</th>
+              <th class="border p-3 text-left">Nama</th>
+              <th class="border p-3 text-left">Resource</th>
+              <th class="border p-3 text-left">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% permissions.forEach((p, i) => { %>
+            <tr class="hover:bg-gray-50">
+              <td class="border p-3"><%= i+1 %></td>
+              <td class="border p-3"><code class="bg-gray-100 px-1 rounded"><%= p.name %></code></td>
+              <td class="border p-3"><%= p.resource %></td>
+              <td class="border p-3"><%= p.action %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <%- include('../layouts/footer') %>
+  </div>
+</div>
+</body>
+</html>

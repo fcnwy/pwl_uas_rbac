@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { listUsers, showCreateForm, storeUser, showEditForm, updateUserHandler, removeUser } from '../controllers/userController';
+import { isAuthenticated, checkPermission } from '../middleware/rbacMiddleware';
+const router = Router();
+router.use(isAuthenticated);
+router.get('/',          checkPermission('user:view'),   listUsers);
+router.get('/create',    checkPermission('user:create'), showCreateForm);
+router.post('/',         checkPermission('user:create'), storeUser);
+router.get('/:id/edit',  checkPermission('user:edit'),   showEditForm);
+router.post('/:id/edit', checkPermission('user:edit'),   updateUserHandler);
+router.post('/:id/delete', checkPermission('user:delete'), removeUser);
+export default router;

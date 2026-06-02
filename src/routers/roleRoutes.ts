@@ -1,0 +1,13 @@
+import { Router } from 'express';
+import { listRoles, showCreateForm, storeRole, showAssignPermission, assignPerm, removePerm, removeRole } from '../controllers/roleController';
+import { isAuthenticated, checkPermission } from '../middleware/rbacMiddleware';
+const router = Router();
+router.use(isAuthenticated);
+router.get('/',                      checkPermission('role:view'), listRoles);
+router.get('/create',                checkPermission('role:view'), showCreateForm);
+router.post('/',                     checkPermission('role:view'), storeRole);
+router.get('/:id/permissions',       checkPermission('role:view'), showAssignPermission);
+router.post('/:id/permissions',      checkPermission('role:view'), assignPerm);
+router.post('/:id/permissions/:permId/delete', checkPermission('role:view'), removePerm);
+router.post('/:id/delete',           checkPermission('role:view'), removeRole);
+export default router;
